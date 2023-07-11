@@ -97,7 +97,7 @@ d3.json('us-states.json')
       });
 
        //START COPY
-    // Create the GeoJSON layer for eighth grade or less
+    // Create the GeoJSON layer for associates or less
     var associates = new L.GeoJSON(null, {
         pointToLayer: function (latlng) {
           return new L.CircleMarker(latlng, geojsonMarkerOptions);
@@ -140,7 +140,7 @@ d3.json('us-states.json')
     var legend = L.control({ position: 'bottomright' });
     legend.onAdd = function (map) {
       var div = L.DomUtil.create('div', 'info legend');
-      var grades = [0, 1000, 5000, 10000, 25000, 100000];
+      var grades = [0, 100000, 500000, 1000000, 2500000, 10000000];
       var labels = [];
 
       for (var i = 0; i < grades.length; i++) {
@@ -155,11 +155,11 @@ d3.json('us-states.json')
     
     // Function to get color based on value
     function getColor(d) {
-      return d > 100000 ? '#ec1515' :
-             d > 25000 ? '#d56016' :
-             d > 10000 ? '#d5a216' :
-             d > 5000 ? '#ccd516' :
-             d > 1000 ? '#cfd642' :
+      return d > 10000000 ? '#ec1515' :
+             d > 2500000 ? '#d56016' :
+             d > 1000000 ? '#d5a216' :
+             d > 500000 ? '#ccd516' :
+             d > 100000 ? '#cfd642' :
              '#d0d570';
     }
 
