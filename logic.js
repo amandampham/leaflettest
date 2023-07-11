@@ -1,3 +1,13 @@
+    // Function to get color based on value
+    function getColor(d) {
+        return d > 10000000 ? '#ec1515' :
+               d > 2500000 ? '#d56016' :
+               d > 1000000 ? '#d5a216' :
+               d > 500000 ? '#ccd516' :
+               d > 100000 ? '#cfd642' :
+               '#d0d570';
+      }
+
 d3.json('us-states.json')
   .then(data => {
     var states = data;
@@ -40,7 +50,7 @@ d3.json('us-states.json')
               .range(['blue', 'red']); // Specify the desired color range
 
             layer.setStyle({
-              fillColor: colorScale(birthsByEducationLevel),
+              fillColor: getColor(birthsByEducationLevel),
               fillOpacity: 0.6,
               color: 'black',
               weight: 1
@@ -108,7 +118,7 @@ d3.json('us-states.json')
           
           d3.csv('state_data_merged_years.csv').then(function(data) {
             var educationData = data.find(function(d) {
-              return d.State === state && d.Education_Level_Code === 5;
+              return d.State === state && d.Education_Level_Code === "5";
             });
            
             if (educationData) {
@@ -153,15 +163,7 @@ d3.json('us-states.json')
 
     legend.addTo(map);
     
-    // Function to get color based on value
-    function getColor(d) {
-      return d > 10000000 ? '#ec1515' :
-             d > 2500000 ? '#d56016' :
-             d > 1000000 ? '#d5a216' :
-             d > 500000 ? '#ccd516' :
-             d > 100000 ? '#cfd642' :
-             '#d0d570';
-    }
+
 
     // Create a layer group to hold both GeoJSON layers
     //For any new layer, add here
