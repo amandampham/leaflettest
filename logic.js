@@ -18,6 +18,7 @@ d3.json('us-states.json')
       fillOpacity: 0.8
     };
 
+    //START COPY
     // Create the GeoJSON layer for eighth grade or less
     var eighth_grade_or_less = new L.GeoJSON(null, {
       pointToLayer: function (latlng) {
@@ -52,8 +53,11 @@ d3.json('us-states.json')
 
     // Iterate through states array and add each state's geojson data to the geojsonLayer
     states.features.forEach(function(state) {
-        eighth_grade_or_less.addData(state);
+        eighth_grade_or_less.addData(state); //CHANGE VARIABLE NAME FOR GRADE
     });
+//END COPY PER EDUCATION
+
+
 
     // Create the GeoJSON layer for ninth grade with no diploma
     var ninth_no_diploma = new L.GeoJSON(null, {
@@ -92,6 +96,46 @@ d3.json('us-states.json')
         ninth_no_diploma.addData(state); //CHANGE VARIABLE NAME FOR GRADE
       });
 
+       //START COPY
+    // Create the GeoJSON layer for eighth grade or less
+    var associates = new L.GeoJSON(null, {
+        pointToLayer: function (latlng) {
+          return new L.CircleMarker(latlng, geojsonMarkerOptions);
+        },
+        onEachFeature: function (feature, layer) {
+          var state = feature.properties.NAME;
+          console.log('State:', state);
+          
+          d3.csv('state_data_merged_years.csv').then(function(data) {
+            var educationData = data.find(function(d) {
+              return d.State === state && d.Education_Level_Code === 5;
+            });
+           
+            if (educationData) {
+              var birthsByEducationLevel = +educationData.Number_of_Births;
+              var colorScale = d3.scaleLinear()
+                .domain([0, birthsByEducationLevel])
+                .range(['blue', 'red']); // Specify the desired color range
+  
+              layer.setStyle({
+                fillColor: colorScale(birthsByEducationLevel),
+                fillOpacity: 0.6,
+                color: 'black',
+                weight: 1
+              });
+              layer.bindPopup(feature.properties.NAME + "<br>Number of Births: " + birthsByEducationLevel);
+            }
+          });
+        }
+      });
+  
+      // Iterate through states array and add each state's geojson data to the geojsonLayer
+      states.features.forEach(function(state) {
+          associates.addData(state); //CHANGE VARIABLE NAME FOR GRADE
+      });
+  //END COPY PER EDUCATION
+
+
     // Legend
     var legend = L.control({ position: 'bottomright' });
     legend.onAdd = function (map) {
@@ -120,12 +164,15 @@ d3.json('us-states.json')
     }
 
     // Create a layer group to hold both GeoJSON layers
-    var layerGroup = L.layerGroup([eighth_grade_or_less, ninth_no_diploma]);
+    //For any new layer, add here
+    var layerGroup = L.layerGroup([eighth_grade_or_less, ninth_no_diploma, associates]);
 
     // Add the layer group to the toggle control
+    //AND ADD NEW LAYER HERE
     var overlayMaps = {
       "8th Grade or Less": eighth_grade_or_less,
-      "9th through 12th with no diploma": ninth_no_diploma
+      "9th through 12th with no diploma": ninth_no_diploma,
+      "Associate's": associates
     };
     L.control.layers(null, overlayMaps, { title: 'Education Level of Mother', collapsed: false }).addTo(map);
 
