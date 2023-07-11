@@ -3,9 +3,15 @@
         return d > 400000 ? '#e00404' :
                d > 300000 ? '#d56016' :
                d > 200000 ? '#d5a216' :
-               d > 100000 ? '#ccd516' :
+               d > 150000 ? '#ccd516' :
+               d > 100000 ? '#cfd642' :
                d > 10000 ? '#cfd642' :
-               '#d0d570';
+               '#d0d570'; // default color for values below or equal to 10000
+      }
+
+      function getOpacity(d) {
+        var opacity = 1 - (d / 400000); // Calculate opacity based on the value of d
+        return opacity;
       }
 
 d3.json('us-states.json')
@@ -24,8 +30,8 @@ d3.json('us-states.json')
       fillColor: "rgba(255,100,100,0.1)",
       color: "rgba(255,100,100,0.7)",
       weight: 1,
-      opacity: 1,
-      fillOpacity: 0.8
+      opacity: 0,
+      fillOpacity: 0
     };
 
        //START COPY -----------------------------------------------------------------------
@@ -36,7 +42,7 @@ d3.json('us-states.json')
       },
       onEachFeature: function (feature, layer) {
         var state = feature.properties.NAME;
-        console.log('State:', state);
+        
         
         d3.csv('state_data_merged_years.csv').then(function(data) {
           var educationData = data.find(function(d) {
@@ -48,8 +54,8 @@ d3.json('us-states.json')
             var birthsByEducationLevel = +educationData.Number_of_Births;
 
             layer.setStyle({
-              fillColor: getColor(birthsByEducationLevel),
-              fillOpacity: 0.6,
+              fillColor: 'red',
+              fillOpacity: getOpacity(birthsByEducationLevel),
               color: 'black',
               weight: 1
             });
@@ -375,8 +381,24 @@ d3.json('us-states.json')
     };
     L.control.layers(null, overlayMaps, { title: 'Education Level of Mother', collapsed: false }).addTo(map);
 
+    var activeLayer = null;
+
+map.on('layeradd', function (event) {
+  var addedLayer = event.layer;
+
+  if (activeLayer && activeLayer !== addedLayer) {
+    map.removeLayer(activeLayer);
+  }
+
+  activeLayer = addedLayer;
+});
+
+map.on('layerremove', function (event) {
+  activeLayer = null;
+});
+
     // Add the layer group to the map
-    layerGroup.addTo(map);
+    map.addLayer(eighth_grade_or_less);
   })
   .catch(error => {
     console.log('Error:', error);
