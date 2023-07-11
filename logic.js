@@ -30,8 +30,8 @@ d3.json('us-states.json')
       fillColor: "rgba(255,100,100,0.1)",
       color: "rgba(255,100,100,0.7)",
       weight: 1,
-      opacity: 1.0,
-      fillOpacity: 0.8
+      opacity: 0,
+      fillOpacity: 0
     };
 
        //START COPY -----------------------------------------------------------------------
@@ -380,22 +380,6 @@ d3.json('us-states.json')
 
     };
     L.control.layers(null, overlayMaps, { title: 'Education Level of Mother', collapsed: false }).addTo(map);
-
-    var activeLayer = null;
-
-map.on('layeradd', function (event) {
-  var addedLayer = event.layer;
-
-  if (activeLayer && activeLayer !== addedLayer) {
-    map.removeLayer(activeLayer);
-  }
-
-  activeLayer = addedLayer;
-});
-
-map.on('layerremove', function (event) {
-  activeLayer = null;
-});
 
     // Add the layer group to the map
     map.addLayer(eighth_grade_or_less);
