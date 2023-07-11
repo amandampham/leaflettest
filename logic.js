@@ -30,8 +30,8 @@ d3.json('us-states.json')
       fillColor: "rgba(255,100,100,0.1)",
       color: "rgba(255,100,100,0.7)",
       weight: 1,
-      opacity: 0,
-      fillOpacity: 0
+      opacity: 1,
+      fillOpacity: 0.8
     };
 
        //START COPY -----------------------------------------------------------------------
@@ -382,7 +382,7 @@ d3.json('us-states.json')
     L.control.layers(null, overlayMaps, { title: 'Education Level of Mother', collapsed: false }).addTo(map);
 
     // Add the layer group to the map
-    map.addLayer(eighth_grade_or_less);
+    layerGroup.addTo(map);
   })
   .catch(error => {
     console.log('Error:', error);
