@@ -30,8 +30,8 @@ d3.json('us-states.json')
       fillColor: "rgba(255,100,100,0.1)",
       color: "rgba(255,100,100,0.7)",
       weight: 1,
-      opacity: 0,
-      fillOpacity: 0
+      opacity: 1.0,
+      fillOpacity: 0.8
     };
 
        //START COPY -----------------------------------------------------------------------
