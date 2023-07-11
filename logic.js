@@ -1,9 +1,9 @@
     // Function to get color based on value
     function getColor(d) {
-        return d > 10000000 ? '#ec1515' :
-               d > 2500000 ? '#d56016' :
-               d > 1000000 ? '#d5a216' :
-               d > 500000 ? '#ccd516' :
+        return d > 500000 ? '#e00404' :
+               d > 400000 ? '#d56016' :
+               d > 300000 ? '#d5a216' :
+               d > 200000 ? '#ccd516' :
                d > 100000 ? '#cfd642' :
                '#d0d570';
       }
@@ -28,7 +28,7 @@ d3.json('us-states.json')
       fillOpacity: 0.8
     };
 
-    //START COPY
+       //START COPY -----------------------------------------------------------------------
     // Create the GeoJSON layer for eighth grade or less
     var eighth_grade_or_less = new L.GeoJSON(null, {
       pointToLayer: function (latlng) {
@@ -40,7 +40,8 @@ d3.json('us-states.json')
         
         d3.csv('state_data_merged_years.csv').then(function(data) {
           var educationData = data.find(function(d) {
-            return d.State === state && d.Education_Level_of_Mother === "8th grade or less";
+            return d.State === state && d.Education_Level_Code === "1";
+            //CHANGE THE EDUCATION LEVEL CODE --------------------------------------------------- - USE STRING
           });
          
           if (educationData) {
@@ -63,12 +64,12 @@ d3.json('us-states.json')
 
     // Iterate through states array and add each state's geojson data to the geojsonLayer
     states.features.forEach(function(state) {
-        eighth_grade_or_less.addData(state); //CHANGE VARIABLE NAME FOR GRADE
+        eighth_grade_or_less.addData(state); //CHANGE VARIABLE NAME FOR GRADE-------------------------------
     });
-//END COPY PER EDUCATION
+//END COPY PER EDUCATION -------------------------------------------------------------------
 
 
-
+       //START COPY -----------------------------------------------------------------------
     // Create the GeoJSON layer for ninth grade with no diploma
     var ninth_no_diploma = new L.GeoJSON(null, {
         pointToLayer: function (latlng) {
@@ -90,7 +91,7 @@ d3.json('us-states.json')
                 .range(['blue', 'red']); // Specify the desired color range
   
               layer.setStyle({
-                fillColor: colorScale(birthsByEducationLevel),
+                fillColor: getColor(birthsByEducationLevel),
                 fillOpacity: 0.6,
                 color: 'black',
                 weight: 1
@@ -106,7 +107,7 @@ d3.json('us-states.json')
         ninth_no_diploma.addData(state); //CHANGE VARIABLE NAME FOR GRADE
       });
 
-       //START COPY
+       //START COPY -----------------------------------------------------------------------
     // Create the GeoJSON layer for associates or less
     var associates = new L.GeoJSON(null, {
         pointToLayer: function (latlng) {
@@ -119,6 +120,7 @@ d3.json('us-states.json')
           d3.csv('state_data_merged_years.csv').then(function(data) {
             var educationData = data.find(function(d) {
               return d.State === state && d.Education_Level_Code === "5";
+              //CHANGE THE EDUCATION LEVEL CODE!!! ---------------------------------------------
             });
            
             if (educationData) {
@@ -128,7 +130,7 @@ d3.json('us-states.json')
                 .range(['blue', 'red']); // Specify the desired color range
   
               layer.setStyle({
-                fillColor: colorScale(birthsByEducationLevel),
+                fillColor: getColor(birthsByEducationLevel),
                 fillOpacity: 0.6,
                 color: 'black',
                 weight: 1
@@ -141,9 +143,9 @@ d3.json('us-states.json')
   
       // Iterate through states array and add each state's geojson data to the geojsonLayer
       states.features.forEach(function(state) {
-          associates.addData(state); //CHANGE VARIABLE NAME FOR GRADE
+          associates.addData(state); //CHANGE VARIABLE NAME FOR GRADE --------------------------------
       });
-  //END COPY PER EDUCATION
+  //END COPY PER EDUCATION -----------------------------------------
 
 
     // Legend
