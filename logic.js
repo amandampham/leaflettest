@@ -1,4 +1,5 @@
     // Function to get color based on value
+    /*
     function getColor(d) {
         return d > 400000 ? '#e00404' :
                d > 300000 ? '#d56016' :
@@ -7,11 +8,16 @@
                d > 100000 ? '#cfd642' :
                d > 10000 ? '#cfd642' :
                '#d0d570'; // default color for values below or equal to 10000
-      }
+      } */
 
       function getColorForLegend(opacity) {
         var color = 'rgba(255, 0, 0, ' + opacity + ')'; // Red color with the specified opacity
         return color;
+      }
+
+      function getInverseOpacity(d) {
+        var opacity = 1 - (d / 400000); // Calculate opacity based on the value of d
+        return opacity;
       }
 
       function getOpacity(d) {
@@ -19,7 +25,8 @@
         return opacity;
       }
 
-      function getInverseOpacity(d) {
+
+      function getColor(d) {
         var opacity = 1 - (d / 400000); // Calculate opacity based on the value of d
 
         /* if (opacity === 0) {
@@ -32,9 +39,9 @@
         } */
         var inverseOpacity = 1 - opacity;
         return inverseOpacity > 0.8 ? '#C300100' :
-            inverseOpacity > 0.6 ? '#f01e2c' :
-            inverseOpacity > 0.4 ? '#ff2c2c' :
-            inverseOpacity > 0.2 ? '#f94449' :
+        inverseOpacity > 0.6 ? '#f01e2c' :
+        inverseOpacity > 0.4 ? '#ff2c2c' :
+        inverseOpacity > 0.2 ? '#f94449' :
                '#ee6b6e';
       }
 
@@ -81,8 +88,8 @@ d3.json('us-states.json')
             var birthsByEducationLevel = +educationData.Number_of_Births;
 
             layer.setStyle({
-              fillColor: 'red',
-              fillOpacity: getInverseOpacity(birthsByEducationLevel),
+              fillColor: getColor(birthsByEducationLevel),
+              fillOpacity: 1,
               color: 'black',
               weight: 1
             });
@@ -120,8 +127,8 @@ d3.json('us-states.json')
                 .range(['blue', 'red']); // Specify the desired color range
   
               layer.setStyle({
-                fillColor: 'red',
-                fillOpacity: getInverseOpacity(birthsByEducationLevel),
+                fillColor: getColor(birthsByEducationLevel),
+                fillOpacity: 1,
                 color: 'black',
                 weight: 1
               });
@@ -159,8 +166,8 @@ d3.json('us-states.json')
                 .range(['blue', 'red']); // Specify the desired color range
   
               layer.setStyle({
-                fillColor: 'red',
-                fillOpacity: getInverseOpacity(birthsByEducationLevel),
+                fillColor: getColor(birthsByEducationLevel),
+                fillOpacity: 1,
                 color: 'black',
                 weight: 1
               });
@@ -196,8 +203,8 @@ d3.json('us-states.json')
               var birthsByEducationLevel = +educationData.Number_of_Births;
   
               layer.setStyle({
-                fillColor: 'red',
-                fillOpacity: getInverseOpacity(birthsByEducationLevel),
+                fillColor: getColor(birthsByEducationLevel),
+                fillOpacity: 1,
                 color: 'black',
                 weight: 1
               });
@@ -234,8 +241,8 @@ d3.json('us-states.json')
               var birthsByEducationLevel = +educationData.Number_of_Births;
   
               layer.setStyle({
-                fillColor: 'red',
-                fillOpacity: getInverseOpacity(birthsByEducationLevel),
+                fillColor: getColor(birthsByEducationLevel),
+                fillOpacity: 1,
                 color: 'black',
                 weight: 1
               });
@@ -272,8 +279,8 @@ d3.json('us-states.json')
               var birthsByEducationLevel = +educationData.Number_of_Births;
   
               layer.setStyle({
-                fillColor: 'red',
-                fillOpacity: getInverseOpacity(birthsByEducationLevel),
+                fillColor: getColor(birthsByEducationLevel),
+                fillOpacity: 1,
                 color: 'black',
                 weight: 1
               });
@@ -310,8 +317,8 @@ d3.json('us-states.json')
               var birthsByEducationLevel = +educationData.Number_of_Births;
   
               layer.setStyle({
-                fillColor: 'red',
-                fillOpacity: getInverseOpacity(birthsByEducationLevel),
+                fillColor: getColor(birthsByEducationLevel),
+                fillOpacity: 1,
                 color: 'black',
                 weight: 1
               });
@@ -349,8 +356,8 @@ d3.json('us-states.json')
             .range(['blue', 'red']); // Specify the desired color range
 
           layer.setStyle({
-            fillColor: 'red',
-            fillOpacity: getInverseOpacity(birthsByEducationLevel),
+            fillColor: getColor(birthsByEducationLevel),
+            fillOpacity: 1,
             color: 'black',
             weight: 1
           });
