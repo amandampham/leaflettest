@@ -19,7 +19,7 @@
       
         if (opacity === 0) {
           // Return the desired color for 0 opacity
-          return 'rgba(255, 255, 255, 0.2)'; // Example: Light gray color with 20% opacity
+          return 'rgba(255, 219, 217, 1)'; // Example: Light gray color with 20% opacity
         } else {
           // Calculate the inverse opacity
           var inverseOpacity = 1 - opacity;
