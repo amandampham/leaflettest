@@ -92,7 +92,7 @@ d3.json('us-states.json')
             layer.setStyle({
               fillColor: getNormalizedColor(birthsByEducationLevel, 2448, 576186),
               fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
-              color: black,
+              color: 'black',
               weight: 3
             });
 
