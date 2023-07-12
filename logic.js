@@ -33,9 +33,9 @@
             var numberOfItems = 6;
             var rainbow = new Rainbow(); 
             rainbow.setNumberRange(1, numberOfItems);
-            rainbow.setSpectrum('red', 'black');
+            rainbow.setSpectrum('red', 'blue');
 
-            var logScale = d3.scaleLinear().domain([min, max]).range([0, 1]);
+            var logScale = d3.scaleLinear().domain([min, max]).range([0.1, 1]);
             var opacity = logScale(d);
 
             return opacity > 0.8 ? rainbow.colourAt(1) :
@@ -47,6 +47,7 @@
             rainbow.colourAt(1); // default color for values below or equal to 10000
             }
 
+            
 d3.json('us-states.json')
   .then(data => {
     var states = data;
