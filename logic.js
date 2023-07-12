@@ -90,7 +90,7 @@ d3.json('us-states.json')
          
           if (educationData) {
             var birthsByEducationLevel = +educationData.Number_of_Births;
-            console.log('Color:', getNormalizedColor(birthsByEducationLevel), 2448, 576186);
+            console.log('Color:', getNormalizedColor(birthsByEducationLevel, 2448, 576186));
             layer.setStyle({
               fillColor: getNormalizedColor(birthsByEducationLevel, 2448, 576186),
               fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
