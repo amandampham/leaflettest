@@ -19,19 +19,16 @@
         return opacity;
       }
 
-      function getInverseOpacity(d) {
-        var opacity = 1 - (d / 400000); // Calculate opacity based on the value of d
-        var opacityValues = [1, 0.8, 0.6, 0.4, 0.2, 0]; 
+      function getInverseOpacity(d, minValue, maxValue) {
+          var logScale = d3.scaleLog()
+            .domain([minValue, maxValue]) // Adjust the domain based on your data range
+            .range([0.2, 1]); // Adjust the range based on the desired opacity range
         
-        if (opacity < 0.1) {
-          // Return the desired color for 0 opacity
-          return 'rgba(255, 219, 217, 1)'; // Example: Light gray color with 20% opacity
-        } else {
-          // Calculate the inverse opacity
+          var opacity = logScale(d);
           var inverseOpacity = 1 - opacity;
-          return inverseOpacity;
-        }
-      }
+            return inverseOpacity;
+          }
+        
 
 d3.json('us-states.json')
   .then(data => {
@@ -77,7 +74,7 @@ d3.json('us-states.json')
 
             layer.setStyle({
               fillColor: 'red',
-              fillOpacity: getInverseOpacity(birthsByEducationLevel),
+              fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
               color: 'black',
               weight: 1
             });
@@ -116,7 +113,7 @@ d3.json('us-states.json')
   
               layer.setStyle({
                 fillColor: 'red',
-                fillOpacity: getInverseOpacity(birthsByEducationLevel),
+                fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
                 color: 'black',
                 weight: 1
               });
@@ -155,7 +152,7 @@ d3.json('us-states.json')
   
               layer.setStyle({
                 fillColor: 'red',
-                fillOpacity: getInverseOpacity(birthsByEducationLevel),
+                fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
                 color: 'black',
                 weight: 1
               });
@@ -192,7 +189,7 @@ d3.json('us-states.json')
   
               layer.setStyle({
                 fillColor: 'red',
-                fillOpacity: getInverseOpacity(birthsByEducationLevel),
+                fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
                 color: 'black',
                 weight: 1
               });
@@ -230,7 +227,7 @@ d3.json('us-states.json')
   
               layer.setStyle({
                 fillColor: 'red',
-                fillOpacity: getInverseOpacity(birthsByEducationLevel),
+                fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
                 color: 'black',
                 weight: 1
               });
@@ -268,7 +265,7 @@ d3.json('us-states.json')
   
               layer.setStyle({
                 fillColor: 'red',
-                fillOpacity: getInverseOpacity(birthsByEducationLevel),
+                fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
                 color: 'black',
                 weight: 1
               });
@@ -306,7 +303,7 @@ d3.json('us-states.json')
   
               layer.setStyle({
                 fillColor: 'red',
-                fillOpacity: getInverseOpacity(birthsByEducationLevel),
+                fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
                 color: 'black',
                 weight: 1
               });
@@ -345,7 +342,7 @@ d3.json('us-states.json')
 
           layer.setStyle({
             fillColor: 'red',
-            fillOpacity: getInverseOpacity(birthsByEducationLevel),
+            fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
             color: 'black',
             weight: 1
           });
