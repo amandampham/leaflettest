@@ -35,7 +35,7 @@
             rainbow.setNumberRange(1, numberOfItems);
             rainbow.setSpectrum('#f69697', '#c30010');
 
-            var logScale = d3.scaleLinear().domain([min, max]).range([0.1, 1]);
+            var logScale = d3.scaleLinear().domain([min, max]).range([1, 0.1]);
             var opacity = logScale(d);
 
             return opacity > 0.8 ? rainbow.colourAt(1) :
