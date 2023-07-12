@@ -16,9 +16,17 @@
 
       function getInverseOpacity(d) {
         var opacity = 1 - (d / 400000); // Calculate opacity based on the value of d
-        var inverseOpacity = 1 - opacity; // Calculate the inverse opacity
-        return inverseOpacity;
+      
+        if (opacity === 0) {
+          // Return the desired color for 0 opacity
+          return 'rgba(255, 255, 255, 0.2)'; // Example: Light gray color with 20% opacity
+        } else {
+          // Calculate the inverse opacity
+          var inverseOpacity = 1 - opacity;
+          return inverseOpacity;
+        }
       }
+
 d3.json('us-states.json')
   .then(data => {
     var states = data;
@@ -26,13 +34,10 @@ d3.json('us-states.json')
     var map = new L.Map('map');
     map.setView(new L.LatLng(39.5, -98.35), 3); // Adjust the center and zoom level to include Alaska
 
-    // var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    //   attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-    // }).addTo(map);
-
-    // see http://maps.stamen.com
-var stamenLayer = new L.StamenTileLayer("watercolor");
-map.addLayer(stamenLayer);
+    var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    
 
     var geojsonMarkerOptions = {
       radius: 1,
@@ -350,23 +355,25 @@ map.addLayer(stamenLayer);
   });
 
 
-    // Legend
-    var legend = L.control({ position: 'bottomright' });
-    legend.onAdd = function (map) {
-      var div = L.DomUtil.create('div', 'info legend');
-      var grades = [0, 3000, 10000, 1500000, 2500000, 3500000];
-      var labels = [];
+// Legend
+var legend = L.control({ position: 'bottomright' });
+legend.onAdd = function (map) {
+  var div = L.DomUtil.create('div', 'info legend');
+  var opacityValues = [1, 0.8, 0.6, 0.4, 0.2, 0]; // Example opacity values
 
-      for (var i = 0; i < grades.length; i++) {
-        div.innerHTML +=
-          '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-          grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-      }
-      return div;
-    };
+  // Iterate through opacity values and create legend items
+  for (var i = 0; i < opacityValues.length; i++) {
+    var opacity = opacityValues[i];
+    var opacityPercentage = Math.round(opacity * 100);
 
-    legend.addTo(map);
-    
+    div.innerHTML +=
+      '<i style="background:' + getColor(opacity) + '"></i> ' +
+      opacityPercentage + '%<br>';
+  }
+  return div;
+};
+
+legend.addTo(map);
 
 
     // Create a layer group to hold both GeoJSON layers
