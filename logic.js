@@ -19,10 +19,8 @@
         return opacity;
       }
 
-      function getInverseOpacity(d, minValue, maxValue) {
-          var logScale = d3.scaleLog()
-            .domain([minValue, maxValue]) // Adjust the domain based on your data range
-            .range([1, 0.4]); // Adjust the range based on the desired opacity range
+      function getInverseOpacity(d, min, max) {
+          var logScale = d3.scaleLinear().domain([min, max]).range([0, 1]);
         
           var opacity = logScale(d);
           var inverseOpacity = 1 - opacity;
@@ -41,11 +39,11 @@
             var opacity = logScale(d);
 
             return opacity > 0.8 ? rainbow.colourAt(1) :
-            d > 0.6 ? rainbow.colourAt(2) :
-            d > 0.4 ? rainbow.colourAt(3) :
-            d > 0.2 ? rainbow.colourAt(4) :
-            d > 0.1 ? rainbow.colourAt(5) :
-            d > 0 ? rainbow.colourAt(6) :
+            opacity > 0.6 ? rainbow.colourAt(2) :
+            opacity > 0.4 ? rainbow.colourAt(3) :
+            opacity > 0.2 ? rainbow.colourAt(4) :
+            opacity > 0.1 ? rainbow.colourAt(5) :
+            opacity > 0 ? rainbow.colourAt(6) :
             rainbow.colourAt(1); // default color for values below or equal to 10000
             }
 
@@ -69,7 +67,7 @@ d3.json('us-states.json')
       color: "rgba(255,100,100,0.7)",
       weight: 1,
       opacity: 1,
-      fillOpacity: 0.8
+      fillOpacity: 1
     };
 
        //START COPY -----------------------------------------------------------------------
@@ -94,8 +92,8 @@ d3.json('us-states.json')
             layer.setStyle({
               fillColor: getNormalizedColor(birthsByEducationLevel, 2448, 576186),
               fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
-              color: getNormalizedColor(birthsByEducationLevel, 2448, 576186),
-              weight: 1
+              color: black,
+              weight: 3
             });
 
             layer.bindPopup(feature.properties.NAME + "<br>Number of Births: " + birthsByEducationLevel);
