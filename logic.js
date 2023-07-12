@@ -90,7 +90,7 @@ d3.json('us-states.json')
          
           if (educationData) {
             var birthsByEducationLevel = +educationData.Number_of_Births;
-
+            console.log('Color:', getNormalizedColor(birthsByEducationLevel));
             layer.setStyle({
               fillColor: getNormalizedColor(birthsByEducationLevel),
               fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
@@ -117,7 +117,6 @@ d3.json('us-states.json')
         },
         onEachFeature: function (feature, layer) {
           var state = feature.properties.NAME;
-          console.log('State:', state);
           
           d3.csv('state_data_merged_years.csv').then(function(data) {
             var educationData = data.find(function(d) {
@@ -126,9 +125,8 @@ d3.json('us-states.json')
            
             if (educationData) {
               var birthsByEducationLevel = +educationData.Number_of_Births;
-              var colorScale = d3.scaleLinear()
-                .domain([0, birthsByEducationLevel])
-                .range(['blue', 'red']); // Specify the desired color range
+              console.log('Color:', getNormalizedColor(birthsByEducationLevel));
+
   
               layer.setStyle({
                 fillColor: getNormalizedColor(birthsByEducationLevel),
@@ -155,7 +153,6 @@ d3.json('us-states.json')
         },
         onEachFeature: function (feature, layer) {
           var state = feature.properties.NAME;
-          console.log('State:', state);
           
           d3.csv('state_data_merged_years.csv').then(function(data) {
             var educationData = data.find(function(d) {
@@ -165,9 +162,7 @@ d3.json('us-states.json')
            
             if (educationData) {
               var birthsByEducationLevel = +educationData.Number_of_Births;
-              var colorScale = d3.scaleLinear()
-                .domain([0, birthsByEducationLevel])
-                .range(['blue', 'red']); // Specify the desired color range
+              console.log('Color:', getNormalizedColor(birthsByEducationLevel));
   
               layer.setStyle({
                 fillColor: getNormalizedColor(birthsByEducationLevel),
@@ -195,7 +190,6 @@ d3.json('us-states.json')
         },
         onEachFeature: function (feature, layer) {
           var state = feature.properties.NAME;
-          console.log('State:', state);
           
           d3.csv('state_data_merged_years.csv').then(function(data) {
             var educationData = data.find(function(d) {
@@ -205,7 +199,8 @@ d3.json('us-states.json')
            
             if (educationData) {
               var birthsByEducationLevel = +educationData.Number_of_Births;
-  
+              console.log('Color:', getNormalizedColor(birthsByEducationLevel));
+
               layer.setStyle({
                 fillColor: getNormalizedColor(birthsByEducationLevel),
                 fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
@@ -233,7 +228,6 @@ d3.json('us-states.json')
         },
         onEachFeature: function (feature, layer) {
           var state = feature.properties.NAME;
-          console.log('State:', state);
           
           d3.csv('state_data_merged_years.csv').then(function(data) {
             var educationData = data.find(function(d) {
@@ -243,7 +237,7 @@ d3.json('us-states.json')
            
             if (educationData) {
               var birthsByEducationLevel = +educationData.Number_of_Births;
-  
+              console.log('Color:', getNormalizedColor(birthsByEducationLevel));
               layer.setStyle({
                 fillColor: getNormalizedColor(birthsByEducationLevel),
                 fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
@@ -271,7 +265,6 @@ d3.json('us-states.json')
         },
         onEachFeature: function (feature, layer) {
           var state = feature.properties.NAME;
-          console.log('State:', state);
           
           d3.csv('state_data_merged_years.csv').then(function(data) {
             var educationData = data.find(function(d) {
@@ -281,7 +274,8 @@ d3.json('us-states.json')
            
             if (educationData) {
               var birthsByEducationLevel = +educationData.Number_of_Births;
-  
+              console.log('Color:', getNormalizedColor(birthsByEducationLevel));
+
               layer.setStyle({
                 fillColor: getNormalizedColor(birthsByEducationLevel),
                 fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
@@ -309,7 +303,6 @@ d3.json('us-states.json')
         },
         onEachFeature: function (feature, layer) {
           var state = feature.properties.NAME;
-          console.log('State:', state);
           
           d3.csv('state_data_merged_years.csv').then(function(data) {
             var educationData = data.find(function(d) {
@@ -319,7 +312,7 @@ d3.json('us-states.json')
            
             if (educationData) {
               var birthsByEducationLevel = +educationData.Number_of_Births;
-  
+              console.log('Color:', getNormalizedColor(birthsByEducationLevel));
               layer.setStyle({
                 fillColor: getNormalizedColor(birthsByEducationLevel),
                 fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
@@ -345,7 +338,6 @@ d3.json('us-states.json')
     },
     onEachFeature: function (feature, layer) {
       var state = feature.properties.NAME;
-      console.log('State:', state);
       
       d3.csv('state_data_merged_years.csv').then(function(data) {
         var educationData = data.find(function(d) {
@@ -355,6 +347,7 @@ d3.json('us-states.json')
        
         if (educationData) {
           var birthsByEducationLevel = +educationData.Number_of_Births;
+          console.log('Color:', getNormalizedColor(birthsByEducationLevel));
           var colorScale = d3.scaleLinear()
             .domain([0, birthsByEducationLevel])
             .range(['blue', 'red']); // Specify the desired color range
