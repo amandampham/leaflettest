@@ -28,7 +28,26 @@
           var inverseOpacity = 1 - opacity;
             return inverseOpacity;
           }
-        
+
+          function getNormalizedColor(d) {
+
+            // get color gradient from rainbow vis with 6 items
+            var numberOfItems = 6;
+            var rainbow = new Rainbow(); 
+            rainbow.setNumberRange(1, numberOfItems);
+            rainbow.setSpectrum('red', 'black');
+
+            var logScale = d3.scaleLog();
+            var opacity = logScale(d);
+
+            return opacity > 0.8 ? rainbow.colourAt(1) :
+            d > 0.6 ? rainbow.colourAt(2) :
+            d > 0.4 ? rainbow.colourAt(3) :
+            d > 0.2 ? rainbow.colourAt(4) :
+            d > 0.1 ? rainbow.colourAt(5) :
+            d > 0 ? rainbow.colourAt(6) :
+            rainbow.colourAt(1); // default color for values below or equal to 10000
+            }
 
 d3.json('us-states.json')
   .then(data => {
@@ -73,7 +92,7 @@ d3.json('us-states.json')
             var birthsByEducationLevel = +educationData.Number_of_Births;
 
             layer.setStyle({
-              fillColor: 'red',
+              fillColor: getNormalizedColor(birthsByEducationLevel),
               fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
               color: 'black',
               weight: 1
@@ -112,7 +131,7 @@ d3.json('us-states.json')
                 .range(['blue', 'red']); // Specify the desired color range
   
               layer.setStyle({
-                fillColor: 'red',
+                fillColor: getNormalizedColor(birthsByEducationLevel),
                 fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
                 color: 'black',
                 weight: 1
@@ -151,7 +170,7 @@ d3.json('us-states.json')
                 .range(['blue', 'red']); // Specify the desired color range
   
               layer.setStyle({
-                fillColor: 'red',
+                fillColor: getNormalizedColor(birthsByEducationLevel),
                 fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
                 color: 'black',
                 weight: 1
@@ -188,7 +207,7 @@ d3.json('us-states.json')
               var birthsByEducationLevel = +educationData.Number_of_Births;
   
               layer.setStyle({
-                fillColor: 'red',
+                fillColor: getNormalizedColor(birthsByEducationLevel),
                 fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
                 color: 'black',
                 weight: 1
@@ -226,7 +245,7 @@ d3.json('us-states.json')
               var birthsByEducationLevel = +educationData.Number_of_Births;
   
               layer.setStyle({
-                fillColor: 'red',
+                fillColor: getNormalizedColor(birthsByEducationLevel),
                 fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
                 color: 'black',
                 weight: 1
@@ -264,7 +283,7 @@ d3.json('us-states.json')
               var birthsByEducationLevel = +educationData.Number_of_Births;
   
               layer.setStyle({
-                fillColor: 'red',
+                fillColor: getNormalizedColor(birthsByEducationLevel),
                 fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
                 color: 'black',
                 weight: 1
@@ -302,7 +321,7 @@ d3.json('us-states.json')
               var birthsByEducationLevel = +educationData.Number_of_Births;
   
               layer.setStyle({
-                fillColor: 'red',
+                fillColor: getNormalizedColor(birthsByEducationLevel),
                 fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
                 color: 'black',
                 weight: 1
@@ -341,7 +360,7 @@ d3.json('us-states.json')
             .range(['blue', 'red']); // Specify the desired color range
 
           layer.setStyle({
-            fillColor: 'red',
+            fillColor: getNormalizedColor(birthsByEducationLevel),
             fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
             color: 'black',
             weight: 1
