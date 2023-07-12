@@ -33,7 +33,7 @@
             var numberOfItems = 6;
             var rainbow = new Rainbow(); 
             rainbow.setNumberRange(1, numberOfItems);
-            rainbow.setSpectrum('red', 'blue');
+            rainbow.setSpectrum('#f69697', '#c30010');
 
             var logScale = d3.scaleLinear().domain([min, max]).range([0.1, 1]);
             var opacity = logScale(d);
@@ -203,7 +203,7 @@ d3.json('us-states.json')
 
               layer.setStyle({
                 fillColor: getNormalizedColor(birthsByEducationLevel),
-                fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
+                fillOpacity: 1,
                 color: 'black',
                 weight: 1
               });
