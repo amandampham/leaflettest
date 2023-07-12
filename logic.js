@@ -22,7 +22,7 @@
       function getInverseOpacity(d, minValue, maxValue) {
           var logScale = d3.scaleLog()
             .domain([minValue, maxValue]) // Adjust the domain based on your data range
-            .range([0.2, 1]); // Adjust the range based on the desired opacity range
+            .range([1, 0.4]); // Adjust the range based on the desired opacity range
         
           var opacity = logScale(d);
           var inverseOpacity = 1 - opacity;
