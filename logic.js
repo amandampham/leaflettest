@@ -29,7 +29,7 @@
             return inverseOpacity;
           }
 
-          function getNormalizedColor(d) {
+          function getNormalizedColor(d, min, max) {
 
             // get color gradient from rainbow vis with 6 items
             var numberOfItems = 6;
@@ -37,7 +37,7 @@
             rainbow.setNumberRange(1, numberOfItems);
             rainbow.setSpectrum('red', 'black');
 
-            var logScale = d3.scaleLog();
+            var logScale = d3.scaleLinear().domain([min, max]).range([0, 1]);
             var opacity = logScale(d);
 
             return opacity > 0.8 ? rainbow.colourAt(1) :
@@ -92,9 +92,9 @@ d3.json('us-states.json')
             var birthsByEducationLevel = +educationData.Number_of_Births;
             console.log('Color:', getNormalizedColor(birthsByEducationLevel));
             layer.setStyle({
-              fillColor: getNormalizedColor(birthsByEducationLevel),
+              fillColor: getNormalizedColor(birthsByEducationLevel, 2448, 576186),
               fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
-              color: 'black',
+              color: getNormalizedColor(birthsByEducationLevel, 2448, 576186),
               weight: 1
             });
 
