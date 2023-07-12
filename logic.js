@@ -26,9 +26,13 @@ d3.json('us-states.json')
     var map = new L.Map('map');
     map.setView(new L.LatLng(39.5, -98.35), 3); // Adjust the center and zoom level to include Alaska
 
-    var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    // var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //   attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+    // }).addTo(map);
+
+    // see http://maps.stamen.com
+var stamenLayer = new L.StamenTileLayer("watercolor");
+map.addLayer(stamenLayer);
 
     var geojsonMarkerOptions = {
       radius: 1,
