@@ -21,15 +21,21 @@
 
       function getInverseOpacity(d) {
         var opacity = 1 - (d / 400000); // Calculate opacity based on the value of d
-      
-        if (opacity === 0) {
+
+        /* if (opacity === 0) {
           // Return the desired color for 0 opacity
           return 'rgba(255, 219, 217, 1)'; // Example: Light gray color with 20% opacity
         } else {
           // Calculate the inverse opacity
           var inverseOpacity = 1 - opacity;
           return inverseOpacity;
-        }
+        } */
+        var inverseOpacity = 1 - opacity;
+        return inverseOpacity > 0.8 ? '#C300100' :
+            inverseOpacity > 0.6 ? '#f01e2c' :
+            inverseOpacity > 0.4 ? '#ff2c2c' :
+            inverseOpacity > 0.2 ? '#f94449' :
+               '#ee6b6e';
       }
 
 d3.json('us-states.json')
@@ -89,12 +95,10 @@ d3.json('us-states.json')
 
     // Iterate through states array and add each state's geojson data to the geojsonLayer
     states.features.forEach(function(state) {
-        eighth_grade_or_less.addData(state); //CHANGE VARIABLE NAME FOR GRADE-------------------------------
+        eighth_grade_or_less.addData(state); 
     });
-//END COPY PER EDUCATION -------------------------------------------------------------------
 
 
-       //START COPY -----------------------------------------------------------------------
     // Create the GeoJSON layer for ninth grade with no diploma
     var ninth_no_diploma = new L.GeoJSON(null, {
         pointToLayer: function (latlng) {
@@ -116,8 +120,8 @@ d3.json('us-states.json')
                 .range(['blue', 'red']); // Specify the desired color range
   
               layer.setStyle({
-                fillColor: getColor(birthsByEducationLevel),
-                fillOpacity: 0.6,
+                fillColor: 'red',
+                fillOpacity: getInverseOpacity(birthsByEducationLevel),
                 color: 'black',
                 weight: 1
               });
@@ -132,7 +136,7 @@ d3.json('us-states.json')
         ninth_no_diploma.addData(state); //CHANGE VARIABLE NAME FOR GRADE
       });
 
-       //START COPY -----------------------------------------------------------------------
+
     // Create the GeoJSON layer for bachelors
     var bachelors = new L.GeoJSON(null, {
         pointToLayer: function (latlng) {
@@ -155,8 +159,8 @@ d3.json('us-states.json')
                 .range(['blue', 'red']); // Specify the desired color range
   
               layer.setStyle({
-                fillColor: getColor(birthsByEducationLevel),
-                fillOpacity: 0.6,
+                fillColor: 'red',
+                fillOpacity: getInverseOpacity(birthsByEducationLevel),
                 color: 'black',
                 weight: 1
               });
@@ -168,11 +172,11 @@ d3.json('us-states.json')
   
       // Iterate through states array and add each state's geojson data to the geojsonLayer
       states.features.forEach(function(state) {
-          bachelors.addData(state); //CHANGE VARIABLE NAME FOR GRADE --------------------------------
+          bachelors.addData(state); 
       });
-  //END COPY PER EDUCATION -----------------------------------------
 
-  //START COPY -----------------------------------------------------------------------
+
+
     // Create the GeoJSON layer for Doctorate/Professional degree
     var doctorate_professional = new L.GeoJSON(null, {
         pointToLayer: function (latlng) {
@@ -192,8 +196,8 @@ d3.json('us-states.json')
               var birthsByEducationLevel = +educationData.Number_of_Births;
   
               layer.setStyle({
-                fillColor: getColor(birthsByEducationLevel),
-                fillOpacity: 0.6,
+                fillColor: 'red',
+                fillOpacity: getInverseOpacity(birthsByEducationLevel),
                 color: 'black',
                 weight: 1
               });
@@ -206,11 +210,11 @@ d3.json('us-states.json')
   
       // Iterate through states array and add each state's geojson data to the geojsonLayer
       states.features.forEach(function(state) {
-        doctorate_professional.addData(state); //CHANGE VARIABLE NAME FOR GRADE-------------------------------
+        doctorate_professional.addData(state); 
       });
-  //END COPY PER EDUCATION -------------------------------------------------------------------
 
-    //START COPY -----------------------------------------------------------------------
+
+   
     // Create the GeoJSON layer for Doctorate/Professional degree
     var highschool_ged = new L.GeoJSON(null, {
         pointToLayer: function (latlng) {
@@ -230,8 +234,8 @@ d3.json('us-states.json')
               var birthsByEducationLevel = +educationData.Number_of_Births;
   
               layer.setStyle({
-                fillColor: getColor(birthsByEducationLevel),
-                fillOpacity: 0.6,
+                fillColor: 'red',
+                fillOpacity: getInverseOpacity(birthsByEducationLevel),
                 color: 'black',
                 weight: 1
               });
@@ -244,11 +248,11 @@ d3.json('us-states.json')
   
       // Iterate through states array and add each state's geojson data to the geojsonLayer
       states.features.forEach(function(state) {
-        highschool_ged.addData(state); //CHANGE VARIABLE NAME FOR GRADE-------------------------------
+        highschool_ged.addData(state); 
       });
-  //END COPY PER EDUCATION -------------------------------------------------------------------
 
-   //START COPY -----------------------------------------------------------------------
+
+
     // Create the GeoJSON layer for Master's degree
     var masters = new L.GeoJSON(null, {
         pointToLayer: function (latlng) {
@@ -268,8 +272,8 @@ d3.json('us-states.json')
               var birthsByEducationLevel = +educationData.Number_of_Births;
   
               layer.setStyle({
-                fillColor: getColor(birthsByEducationLevel),
-                fillOpacity: 0.6,
+                fillColor: 'red',
+                fillOpacity: getInverseOpacity(birthsByEducationLevel),
                 color: 'black',
                 weight: 1
               });
@@ -282,11 +286,11 @@ d3.json('us-states.json')
   
       // Iterate through states array and add each state's geojson data to the geojsonLayer
       states.features.forEach(function(state) {
-        masters.addData(state); //CHANGE VARIABLE NAME FOR GRADE-------------------------------
+        masters.addData(state); 
       });
-  //END COPY PER EDUCATION -------------------------------------------------------------------
+  
 
-     //START COPY -----------------------------------------------------------------------
+  
     // Create the GeoJSON layer for Some College,no degree
     var some_college_no_degree = new L.GeoJSON(null, {
         pointToLayer: function (latlng) {
@@ -306,8 +310,8 @@ d3.json('us-states.json')
               var birthsByEducationLevel = +educationData.Number_of_Births;
   
               layer.setStyle({
-                fillColor: getColor(birthsByEducationLevel),
-                fillOpacity: 0.6,
+                fillColor: 'red',
+                fillOpacity: getInverseOpacity(birthsByEducationLevel),
                 color: 'black',
                 weight: 1
               });
@@ -345,8 +349,8 @@ d3.json('us-states.json')
             .range(['blue', 'red']); // Specify the desired color range
 
           layer.setStyle({
-            fillColor: getColor(birthsByEducationLevel),
-            fillOpacity: 0.6,
+            fillColor: 'red',
+            fillOpacity: getInverseOpacity(birthsByEducationLevel),
             color: 'black',
             weight: 1
           });
