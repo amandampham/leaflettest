@@ -9,6 +9,11 @@
                '#d0d570'; // default color for values below or equal to 10000
       }
 
+      function getColorForLegend(opacity) {
+        var color = 'rgba(255, 0, 0, ' + opacity + ')'; // Red color with the specified opacity
+        return color;
+      }
+
       function getOpacity(d) {
         var opacity = 1 - (d / 400000); // Calculate opacity based on the value of d
         return opacity;
@@ -34,8 +39,10 @@ d3.json('us-states.json')
     var map = new L.Map('map');
     map.setView(new L.LatLng(39.5, -98.35), 3); // Adjust the center and zoom level to include Alaska
 
-    var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+    var street = L.tileLayer('https://{s}.tile.thunderforest.com/mobile-atlas/{z}/{x}/{y}.png?apikey={apikey}', {
+        attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        apikey: '27d8f9327b65469c9e36e2665272b7f7',
+        maxZoom: 22
     }).addTo(map);
     
 
@@ -367,7 +374,7 @@ legend.onAdd = function (map) {
     var opacityPercentage = Math.round(opacity * 100);
 
     div.innerHTML +=
-      '<i style="background:' + getColor(opacity) + '"></i> ' +
+      '<i style="background:' + getColorForLegend(opacity) + '"></i> ' +
       opacityPercentage + '%<br>';
   }
   return div;
