@@ -14,6 +14,11 @@
         return opacity;
       }
 
+      function getInverseOpacity(d) {
+        var opacity = 1 - (d / 400000); // Calculate opacity based on the value of d
+        var inverseOpacity = 1 - opacity; // Calculate the inverse opacity
+        return inverseOpacity;
+      }
 d3.json('us-states.json')
   .then(data => {
     var states = data;
@@ -26,8 +31,8 @@ d3.json('us-states.json')
     }).addTo(map);
 
     var geojsonMarkerOptions = {
-      radius: 4,
-      fillColor: "rgba(255,100,100,0.1)",
+      radius: 1,
+      fillColor: "white",
       color: "rgba(255,100,100,0.7)",
       weight: 1,
       opacity: 1,
@@ -55,7 +60,7 @@ d3.json('us-states.json')
 
             layer.setStyle({
               fillColor: 'red',
-              fillOpacity: getOpacity(birthsByEducationLevel),
+              fillOpacity: getInverseOpacity(birthsByEducationLevel),
               color: 'black',
               weight: 1
             });
