@@ -35,15 +35,16 @@
             rainbow.setNumberRange(1, numberOfItems);
             rainbow.setSpectrum('#f69697', '#c30010');
 
-            var logScale = d3.scaleLinear().domain([min, max]).range([1, 0.1]);
+            var logScale = d3.scaleLog().domain([min, max]).range([0.1, 1]);
             var opacity = logScale(d);
-
-            return opacity > 0.8 ? rainbow.colourAt(1) :
-            opacity > 0.6 ? rainbow.colourAt(2) :
-            opacity > 0.4 ? rainbow.colourAt(3) :
-            opacity > 0.2 ? rainbow.colourAt(4) :
-            opacity > 0.1 ? rainbow.colourAt(5) :
-            opacity > 0 ? rainbow.colourAt(6) :
+             
+            var inverseOpacity = 1 - opacity;
+            return inverseOpacity > 0.8 ? rainbow.colourAt(6) :
+            inverseOpacity > 0.6 ? rainbow.colourAt(5) :
+            inverseOpacity > 0.4 ? rainbow.colourAt(4) :
+            inverseOpacity > 0.2 ? rainbow.colourAt(3) :
+            inverseOpacity > 0.1 ? rainbow.colourAt(2) :
+            inverseOpacity > 0 ? rainbow.colourAt(1) :
             rainbow.colourAt(1); // default color for values below or equal to 10000
             }
 
@@ -68,7 +69,7 @@ d3.json('us-states.json')
       color: "rgba(255,100,100,0.7)",
       weight: 1,
       opacity: 1,
-      fillOpacity: 1
+      fillOpacity: 0
     };
 
        //START COPY -----------------------------------------------------------------------
@@ -99,6 +100,16 @@ d3.json('us-states.json')
             });
 
             layer.bindPopup(feature.properties.NAME + "<br>Number of Births: " + birthsByEducationLevel);
+          } else {
+            // No birth data for the state
+            layer.setStyle({
+              fillColor: '#999999', // Gray fill color
+              fillOpacity: 0.1, // Low opacity
+              color: 'black',
+              weight: 1
+            });
+      
+            layer.bindPopup("No birth data available for " + feature.properties.NAME);
           }
         });
       }
@@ -125,21 +136,30 @@ d3.json('us-states.json')
            
             if (educationData) {
               var birthsByEducationLevel = +educationData.Number_of_Births;
-              console.log('Color:', getNormalizedColor(birthsByEducationLevel));
-
-  
+              var hexColor = '#' + getNormalizedColor(birthsByEducationLevel, 30894, 1344240);
+              console.log('Color:', hexColor);
               layer.setStyle({
-                fillColor: getNormalizedColor(birthsByEducationLevel),
-                fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
+                fillColor: hexColor,
+                fillOpacity: getInverseOpacity(birthsByEducationLevel, 30894, 1344240),
+                color: 'black',
+                weight: 3
+              });
+  
+              layer.bindPopup(feature.properties.NAME + "<br>Number of Births: " + birthsByEducationLevel);
+            } else {
+              // No birth data for the state
+              layer.setStyle({
+                fillColor: '#999999', // Gray fill color
+                fillOpacity: 0.1, // Low opacity
                 color: 'black',
                 weight: 1
               });
-              layer.bindPopup(feature.properties.NAME + "<br>Number of Births: " + birthsByEducationLevel);
+        
+              layer.bindPopup("No birth data available for " + feature.properties.NAME);
             }
           });
         }
       });
-
       // Iterate through states array and add each state's geojson data to the geojsonLayer
       states.features.forEach(function(state) {
         ninth_no_diploma.addData(state); //CHANGE VARIABLE NAME FOR GRADE
@@ -162,15 +182,26 @@ d3.json('us-states.json')
            
             if (educationData) {
               var birthsByEducationLevel = +educationData.Number_of_Births;
-              console.log('Color:', getNormalizedColor(birthsByEducationLevel));
-  
+              var hexColor = '#' + getNormalizedColor(birthsByEducationLevel, 61548, 3277230);
+              console.log('Color:', hexColor);
               layer.setStyle({
-                fillColor: getNormalizedColor(birthsByEducationLevel),
-                fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
+                fillColor: hexColor,
+                fillOpacity: getInverseOpacity(birthsByEducationLevel, 61548, 3277230),
+                color: 'black',
+                weight: 3
+              });
+  
+              layer.bindPopup(feature.properties.NAME + "<br>Number of Births: " + birthsByEducationLevel);
+            } else {
+              // No birth data for the state
+              layer.setStyle({
+                fillColor: '#999999', // Gray fill color
+                fillOpacity: 0.1, // Low opacity
                 color: 'black',
                 weight: 1
               });
-              layer.bindPopup(feature.properties.NAME + "<br>Number of Births: " + birthsByEducationLevel);
+        
+              layer.bindPopup("No birth data available for " + feature.properties.NAME);
             }
           });
         }
@@ -199,21 +230,30 @@ d3.json('us-states.json')
            
             if (educationData) {
               var birthsByEducationLevel = +educationData.Number_of_Births;
-              console.log('Color:', getNormalizedColor(birthsByEducationLevel));
-
+              var hexColor = '#' + getNormalizedColor(birthsByEducationLevel, 7506, 501528);
+              console.log('Color:', hexColor);
               layer.setStyle({
-                fillColor: getNormalizedColor(birthsByEducationLevel),
-                fillOpacity: 1,
+                fillColor: hexColor,
+                fillOpacity: getInverseOpacity(birthsByEducationLevel, 7506, 501528),
                 color: 'black',
-                weight: 1
+                weight: 3
               });
   
               layer.bindPopup(feature.properties.NAME + "<br>Number of Births: " + birthsByEducationLevel);
+            } else {
+              // No birth data for the state
+              layer.setStyle({
+                fillColor: '#999999', // Gray fill color
+                fillOpacity: 0.1, // Low opacity
+                color: 'black',
+                weight: 1
+              });
+        
+              layer.bindPopup("No birth data available for " + feature.properties.NAME);
             }
           });
         }
       });
-  
       // Iterate through states array and add each state's geojson data to the geojsonLayer
       states.features.forEach(function(state) {
         doctorate_professional.addData(state); 
@@ -237,15 +277,26 @@ d3.json('us-states.json')
            
             if (educationData) {
               var birthsByEducationLevel = +educationData.Number_of_Births;
-              console.log('Color:', getNormalizedColor(birthsByEducationLevel));
+              var hexColor = '#' + getNormalizedColor(birthsByEducationLevel, 109842, 3860538);
+              console.log('Color:', hexColor);
               layer.setStyle({
-                fillColor: getNormalizedColor(birthsByEducationLevel),
-                fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
+                fillColor: hexColor,
+                fillOpacity: getInverseOpacity(birthsByEducationLevel, 109842, 3860538),
                 color: 'black',
-                weight: 1
+                weight: 3
               });
   
               layer.bindPopup(feature.properties.NAME + "<br>Number of Births: " + birthsByEducationLevel);
+            } else {
+              // No birth data for the state
+              layer.setStyle({
+                fillColor: '#999999', // Gray fill color
+                fillOpacity: 0.1, // Low opacity
+                color: 'black',
+                weight: 1
+              });
+        
+              layer.bindPopup("No birth data available for " + feature.properties.NAME);
             }
           });
         }
@@ -274,16 +325,26 @@ d3.json('us-states.json')
            
             if (educationData) {
               var birthsByEducationLevel = +educationData.Number_of_Births;
-              console.log('Color:', getNormalizedColor(birthsByEducationLevel));
-
+              var hexColor = '#' + getNormalizedColor(birthsByEducationLevel, 23712, 1492872);
+              console.log('Color:', hexColor);
               layer.setStyle({
-                fillColor: getNormalizedColor(birthsByEducationLevel),
-                fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
+                fillColor: hexColor,
+                fillOpacity: getInverseOpacity(birthsByEducationLevel, 23712, 1492872),
                 color: 'black',
-                weight: 1
+                weight: 3
               });
   
               layer.bindPopup(feature.properties.NAME + "<br>Number of Births: " + birthsByEducationLevel);
+            } else {
+              // No birth data for the state
+              layer.setStyle({
+                fillColor: '#999999', // Gray fill color
+                fillOpacity: 0.1, // Low opacity
+                color: 'black',
+                weight: 1
+              });
+        
+              layer.bindPopup("No birth data available for " + feature.properties.NAME);
             }
           });
         }
@@ -312,15 +373,26 @@ d3.json('us-states.json')
            
             if (educationData) {
               var birthsByEducationLevel = +educationData.Number_of_Births;
-              console.log('Color:', getNormalizedColor(birthsByEducationLevel));
+              var hexColor = '#' + getNormalizedColor(birthsByEducationLevel, 91158, 3117966);
+              console.log('Color:', hexColor);
               layer.setStyle({
-                fillColor: getNormalizedColor(birthsByEducationLevel),
-                fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
+                fillColor: hexColor,
+                fillOpacity: getInverseOpacity(birthsByEducationLevel, 91158, 3117966),
                 color: 'black',
-                weight: 1
+                weight: 3
               });
   
               layer.bindPopup(feature.properties.NAME + "<br>Number of Births: " + birthsByEducationLevel);
+            } else {
+              // No birth data for the state
+              layer.setStyle({
+                fillColor: '#999999', // Gray fill color
+                fillOpacity: 0.1, // Low opacity
+                color: 'black',
+                weight: 1
+              });
+        
+              layer.bindPopup("No birth data available for " + feature.properties.NAME);
             }
           });
         }
@@ -347,18 +419,26 @@ d3.json('us-states.json')
        
         if (educationData) {
           var birthsByEducationLevel = +educationData.Number_of_Births;
-          console.log('Color:', getNormalizedColor(birthsByEducationLevel));
-          var colorScale = d3.scaleLinear()
-            .domain([0, birthsByEducationLevel])
-            .range(['blue', 'red']); // Specify the desired color range
-
+          var hexColor = '#' + getNormalizedColor(birthsByEducationLevel, 29574, 1077582);
+          console.log('Color:', hexColor);
           layer.setStyle({
-            fillColor: getNormalizedColor(birthsByEducationLevel),
-            fillOpacity: getInverseOpacity(birthsByEducationLevel, 2448, 576186),
+            fillColor: hexColor,
+            fillOpacity: getInverseOpacity(birthsByEducationLevel, 29574, 1077582),
+            color: 'black',
+            weight: 3
+          });
+
+          layer.bindPopup(feature.properties.NAME + "<br>Number of Births: " + birthsByEducationLevel);
+        } else {
+          // No birth data for the state
+          layer.setStyle({
+            fillColor: '#999999', // Gray fill color
+            fillOpacity: 0.1, // Low opacity
             color: 'black',
             weight: 1
           });
-          layer.bindPopup(feature.properties.NAME + "<br>Number of Births: " + birthsByEducationLevel);
+    
+          layer.bindPopup("No birth data available for " + feature.properties.NAME);
         }
       });
     }
@@ -382,9 +462,17 @@ legend.onAdd = function (map) {
     var opacityPercentage = Math.round(opacity * 100);
 
     div.innerHTML +=
-      '<i style="background:' + getColorForLegend(opacity) + '"></i> ' +
-      opacityPercentage + '%<br>';
+      '<i style="background:' + getColorForLegend(opacity) + '; box-shadow: 0 0 3px rgba(0, 0, 0, 0.5); width: 20px; height: 20px; display: inline-block; margin-right: 5px;"></i> ';
+
+    if (i === 0) {
+      div.innerHTML += 'Lower number of births<br>';
+    } else if (i === opacityValues.length - 1) {
+      div.innerHTML += 'Higher number of births<br>';
+    } else {
+      div.innerHTML += '<br>';
+    }
   }
+
   return div;
 };
 
